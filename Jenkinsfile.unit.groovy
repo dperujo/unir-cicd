@@ -37,7 +37,7 @@ pipeline {
             script {
                 def jobName = env.JOB_NAME
                 def buildNumber = env.BUILD_NUMBER
-                def userEmail = sh(script: 'git log -1 --format=%ae', returnStdout: true).trim()
+                def userEmail = currentBuild.getBuildCauses()[0].shortDescription + " / " + currentBuild.getBuildCauses()[0].userId
                 echo "Job '${jobName}' (Build ${buildNumber}) has failed!"
                 echo "Correo '${userEmail}' al que se enviará!"
                 emailext body: "Job '${jobName}' (Build ${buildNumber}) has failed!",
