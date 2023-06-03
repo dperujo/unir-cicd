@@ -37,11 +37,14 @@ pipeline {
             script {
                 def jobName = env.JOB_NAME
                 def buildNumber = env.BUILD_NUMBER
-                def userEmail = currentBuild.getBuildCauses()[0].shortDescription + " / " + currentBuild.getBuildCauses()[0].userId
+                def user = currentBuild.getBuildCauses()[0].userId
+                def userEmail = "correo@gmail.com"
                 echo "Job '${jobName}' (Build ${buildNumber}) has failed!"
-                echo "Correo '${userEmail}' al que se enviará!"
-                emailext body: "Job '${jobName}' (Build ${buildNumber}) has failed!",
-                    subject: "Pipeline Failure: ${jobName} (Build ${buildNumber})",
+                echo "Se enviará correo a '${user}'"
+                echo "BODY: Trabajo '${jobName}' (Ejecución ${buildNumber}) ha fallado!"
+                echo "SUBJECT Pipeline fallida: ${jobName} (Ejecución ${buildNumber})"
+                emailext body: "Trabajo '${jobName}' (Ejecución ${buildNumber}) ha fallado!",
+                    subject: "Pipeline fallida: ${jobName} (Ejecución ${buildNumber})",
                     to: userEmail
             }
         }
