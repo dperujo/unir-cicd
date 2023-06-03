@@ -33,5 +33,16 @@ pipeline {
             junit 'results/*_result.xml'
             cleanWS()
         }
+        failure {
+            script {
+                def jobName = env.JOB_NAME
+                def buildNumber = env.BUILD_NUMBER
+                def userEmail = sh(script: 'git log -1 --format=%ae', returnStdout: true).trim()
+                echo "Job '${jobName}' (Build ${buildNumber}) has failed!"
+                emailext body: "Job '${jobName}' (Build ${buildNumber}) has failed!",
+                    subject: "Pipeline Failure: ${jobName} (Build ${buildNumber})",
+                    to: userEmail
+            }
+        }
     }
 }
