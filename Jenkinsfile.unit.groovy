@@ -24,7 +24,7 @@ pipeline {
         stage('E2E tests') {
             steps {
                 sh 'make test-e2e'
-                archiveArtifacts artifacts: 'results/*.xml'
+                archiveArtifacts artifacts: 'results/pruebaFallo/*.xml'
             }
         }
     }
@@ -39,6 +39,7 @@ pipeline {
                 def buildNumber = env.BUILD_NUMBER
                 def userEmail = sh(script: 'git log -1 --format=%ae', returnStdout: true).trim()
                 echo "Job '${jobName}' (Build ${buildNumber}) has failed!"
+                echo "Correo '${userEmail}' al que se enviará!"
                 emailext body: "Job '${jobName}' (Build ${buildNumber}) has failed!",
                     subject: "Pipeline Failure: ${jobName} (Build ${buildNumber})",
                     to: userEmail
