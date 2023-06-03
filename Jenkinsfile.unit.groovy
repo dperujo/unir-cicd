@@ -18,13 +18,13 @@ pipeline {
         stage('API tests') {
             steps {
                 sh 'make test-api'
-                archiveArtifacts artifacts: 'results/api/*.xml'
+                archiveArtifacts artifacts: 'results/*.xml'
             }
         }
         stage('E2E tests') {
             steps {
                 sh 'make test-e2e'
-                archiveArtifacts artifacts: 'results/e2e/*.xml'
+                archiveArtifacts artifacts: 'results/*.xml'
             }
         }
     }
