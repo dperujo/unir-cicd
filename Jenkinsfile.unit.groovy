@@ -39,7 +39,6 @@ pipeline {
                 def buildNumber = env.BUILD_NUMBER
                 def user = currentBuild.getBuildCauses()[0].userId
                 def userEmail = "correo@gmail.com"
-                echo "Job '${jobName}' (Build ${buildNumber}) has failed!"
                 echo "Se enviará correo a '${user}'"
                 echo "BODY: Trabajo '${jobName}' (Ejecución ${buildNumber}) ha fallado!"
                 echo "SUBJECT Pipeline fallida: ${jobName} (Ejecución ${buildNumber})"
